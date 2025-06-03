@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Share My Location</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    button { padding: 10px 20px; font-size: 16px; }
+    #output { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Share My Location</h1>
+  <p>Click the button to share your GPS coordinates.</p>
+  <button onclick="getLocation()">Get My Location</button>
+  <div id="output"></div>
+
+  <script>
+    function getLocation() {
+      const output = document.getElementById('output');
+      if (!navigator.geolocation) {
+        output.innerHTML = "Geolocation is not supported by your browser.";
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          output.innerHTML = `<p>Latitude: ${lat}</p><p>Longitude: ${lon}</p>`;
+        },
+        error => {
+          output.innerHTML = "Unable to retrieve your location. Permission denied or another error occurred.";
+        }
+      );
+    }
+  </script>
+</body>
+</html>
